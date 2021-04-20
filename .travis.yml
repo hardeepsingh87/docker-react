@@ -10,3 +10,24 @@ before_install:
 
 script:
         - docker run -e CI=true hardeepsingh87/docker-react npm run test
+
+deploy:
+        provider: elasticbeanstalk
+        region: "ap-south-1"
+        app: "docker-react"
+        env: "Dockerreact-env"
+        bucket_name: "elasticbeanstalk-ap-south-1-234601324440"
+        bucket_path: "docker-react"
+        on:
+                branch: master
+        access_key_id: "$AWS_ACCESS_KEY"
+        secret_access_key:
+               secure: "$AWS_SECRET_KEY"
+
+
+#Travis CI has a bunch of preconfigured providers so by just specifiying elasticbeanstalk, it is going to do a lot of stuff on its own.
+#Region is the AWS regison in which your created your Elastic Beanstalk App.Pick it from your app URL.
+#app and env name can be copied from the app you created in Elastic Beanstalk
+#Elastic Beanstalk also created a S3 bucket when the app is created so just go to S3 service in your AWS account and copy the name of the S3 bucket for your application
+#bucket_path is folder inside the S3 bucket where TravisCI will put all the code.Its not created by default so you can name is as the app name and when TravisCI does its thing, it should automatically create that folder.
+#branch=master just tells TravisCI to only push the code from the master branch.
