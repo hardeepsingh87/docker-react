@@ -21,8 +21,7 @@ deploy:
         on:
                 branch: master
         access_key_id: "$AWS_ACCESS_KEY"
-        secret_access_key:
-               secure: "$AWS_SECRET_KEY"
+        secret_access_key: "$AWS_SECRET_KEY"
 
 
 #Travis CI has a bunch of preconfigured providers so by just specifiying elasticbeanstalk, it is going to do a lot of stuff on its own.
